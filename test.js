@@ -32,8 +32,7 @@ function main() {
     )
     .then((answer) => {
       console.log(answer);
-      let choice;
-      switch ((choice = answer)) {
+      switch (answer) {
         case "View All Employees":
           displayEmployees();
           break;
