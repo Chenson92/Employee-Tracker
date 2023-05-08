@@ -85,70 +85,6 @@ db.connect(function () {
   displayEmployees();
 });
 
-const addEmployees = () => {
-  db.query("SELECT * FROM role", (err, roles) => {
-    if (err) console.log(err);
-    roles = roles.map((role) => {
-      return {
-        name: role.title,
-        value: role.id,
-      };
-    });
-  });
-  inquirer
-    .prompt([
-      {
-        type: "input",
-        name: "firstName",
-        message: "What is the employee’s first name?",
-      },
-      {
-        type: "input",
-        name: "lastName",
-        message: "What is the employee’s role?",
-      },
-      {
-        type: "list",
-        name: "role",
-        message: " What is the employee’s role?",
-        choices: [
-          "Sales Lead",
-          "Salesperson",
-          "Lead Engineer",
-          "Soft Engineer",
-          "Account Manager",
-          "Accountant",
-          "Legal Team Lead",
-          "Lawyer",
-        ], // how to add new role
-      },
-      {
-        type: "list",
-        name: "manager",
-        message: "what is the employee’s manager?",
-        choices: [
-          "null",
-          "John Doe",
-          "Mike Chan",
-          "Ashley Rod",
-          "Kevin Tupik",
-          "Kunal Singh",
-          "Malia Brown",
-        ],
-      },
-    ])
-    .then((data) => {
-      let dbQuery = `INSERT INTO employee(first_name, last_name, role_id, manager_id)
-  VALUES('${data.firstName}','${data.lastName}','${data.manager}');`;
-    });
-
-  console.log(`Added ${data.firstName}' '${data.lastName} to the database`);
-
-  db.connect(function () {
-    addEmployees();
-  });
-};
-
 const displayRoles = () => {
   let dbQuery = `SELECT * FROM role
   JOIN department ON role.department_id=department.id;`;
@@ -160,47 +96,6 @@ const displayRoles = () => {
 db.connect(function () {
   displayRoles();
 });
-
-const addRole = () => {
-  db.query("SELECT * FROM department", (err, departments) => {
-    if (err) console.log(err);
-    departments = departments.map((department) => {
-      return {
-        name: department.name,
-        value: department.id,
-      };
-    });
-  });
-  inquirer
-    .prompt([
-      {
-        type: "input",
-        name: "roleName",
-        message: "What is the name of the role?",
-      },
-      {
-        type: "input",
-        name: "salary",
-        message: "What is the salary of the role",
-      },
-      {
-        type: "list",
-        name: "departmentName",
-        message: "Which department does the role belong to?",
-        choices: ["Engineering", "Finance", "Sales", "Legal"],
-      }, // how to update the new department in
-    ])
-    .then((data) => {
-      let dbQuery = `INSERT INTO role(title, salary, department_id)
-        VALUES('${data.roleName}','${data.salary}','${data.departmentName}');`;
-    });
-
-  console.log(`Added ${data.roleName} to the database`);
-
-  db.connect(function () {
-    addRole();
-  });
-};
 
 const displayDepartments = () => {
   let dbQuery = `SELECT * FROM department;`;
@@ -233,55 +128,6 @@ const addDepartment = () => {
     addDepartment();
   });
 };
-
-const updateEmployeeRole = () => {
-  db.query("SELECT * FROM employee", (err, employees) => {
-    if (err) console.log(err);
-    employees = employees.map((employee) => {
-      return {
-        name: `${employee.first_name} ${employee.last_name}`,
-        value: employee.id,
-      };
-    });
-    db.query("SELECT * FROM role", (err, roles) => {
-      if (err) console.log(err);
-      roles = roles.map((role) => {
-        return {
-          name: role.title,
-          value: role.id,
-        };
-      });
-      inquirer
-        .prompt([
-          {
-            type: "list",
-            name: "selectEmployee",
-            message: "Which employee’s role do you want to update?",
-            choices: employees,
-          },
-          {
-            type: "list",
-            name: "selectRole",
-            message: "Which role do you want to assign the selected employee?",
-            choices: roles,
-          },
-        ])
-        .then((data) => {
-          let dbQuery = `UPDATE employee
-            SET role_id='${data.selectRole}'
-            WHERE id=${data.selectEmployee};`;
-        });
-      console.log("Updated emplyee’s role");
-      displayRoles();
-    });
-  });
-};
-
-{
-}
-db.connect(function () {
-  updateEmployeeRole();
-});
 
 db.connect((err) => {
   if (err) throw err;
