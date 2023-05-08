@@ -31,7 +31,7 @@ function main() {
       }
     )
     .then((answer) => {
-      console.log(answer);
+      // console.log(answer);
       switch (answer) {
         case "View All Employees":
           displayEmployees();
@@ -80,9 +80,9 @@ const displayEmployees = () => {
   });
 };
 // Similiar to db.connect.then, or fetch.then.. because there may be a slight delay and we wait at then
-db.connect(function () {
-  displayEmployees();
-});
+// db.connect(function () {
+//   displayEmployees();
+// });
 
 const displayRoles = () => {
   let dbQuery = `SELECT * FROM role
@@ -92,9 +92,9 @@ const displayRoles = () => {
     console.table(results);
   });
 };
-db.connect(function () {
-  displayRoles();
-});
+// db.connect(function () {
+//   displayRoles();
+// });
 
 const displayDepartments = () => {
   let dbQuery = `SELECT * FROM department;`;
@@ -103,9 +103,9 @@ const displayDepartments = () => {
     console.table(results);
   });
 };
-db.connect(function () {
-  displayDepartments();
-});
+// db.connect(function () {
+//   displayDepartments();
+// });
 
 const addDepartment = () => {
   inquirer
@@ -123,9 +123,9 @@ const addDepartment = () => {
 
   console.log(`Added ${data.departmentName} to the database`);
 
-  db.connect(function () {
-    addDepartment();
-  });
+  // db.connect(function () {
+  //   addDepartment();
+  // });
 };
 
 db.connect((err) => {
