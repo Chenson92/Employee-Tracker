@@ -27,7 +27,7 @@ This is a command-line application to manage a company's employee database, usin
 ## Links
 
 - GitHub: https://github.com/Chenson92/Employee-Tracker
-- Walk Through Video:
+- Walk Through Video: https://drive.google.com/file/d/1YDxMv3LxMu0Y6sYk-sXLpkcWJJBQDHrq/view
 
 ## License
 
